@@ -117,22 +117,3 @@ if ($result)
     $Uninstaller = Invoke-WebRequest -Uri $downloadUninstaller -OutFile 'c:\FlashRemove\uninstaller.exe'
     c:\FlashRemove\uninstaller.exe -uninstall
 }
-
-<###################################################################
-If packing as a Win32 app in Intune, use the code below as a custom detection script
-####################################################################
-
-$result = systeminfo.exe | findstr KB4577586
-$path = 'HKLM:\SOFTWARE\Macromedia\FlashPlayerPepper'
-
-if ($result -and !(Test-Path $path))
- {
-    
-    Write-Output "Found KB4577586 and Pepper is gone."
-    exit 0
- }
- else
- {
-    exit 1
- }
-#>
