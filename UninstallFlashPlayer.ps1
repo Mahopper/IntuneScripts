@@ -11,10 +11,11 @@
 
 <#
     .SYNOPSIS
-    Removes Flash from Windows 10 using Adobe's uninstaller and KB4577586
+    Removes Flash from Windows 10 using Adobe's uninstaller and KB4577586.
 
     .DESCRIPTION
     Checks if KB4577586 is installed. If not, downloads and installs from MSU catalog, and then downloads and runs Adobe uninstaller. Can be packaged as IntuneWin32.
+    If packagine as a Win32 app, use the Detection script in the repro for your custom detection script.
 
 #>
 
