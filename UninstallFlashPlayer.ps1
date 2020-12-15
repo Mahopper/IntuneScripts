@@ -21,7 +21,7 @@
 
 
 $winver = (Get-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion" -Name ReleaseId).ReleaseId
-new-item c:\FlashRemove -itemtype directory
+new-item c:\FlashRemove -itemtype directory -Force
 $WULocation = "C:\FlashRemove\KB4577586.msu"
 $OSArch = (Get-WmiObject Win32_OperatingSystem).OSArchitecture
 $downloadSource
@@ -35,6 +35,8 @@ if ($result)
  }
  else
  {
+    $Uninstaller = Invoke-WebRequest -Uri $downloadUninstaller -OutFile 'c:\FlashRemove\uninstaller.exe'
+    c:\FlashRemove\uninstaller.exe -uninstall
     If (($winver -eq '2009') -or ($winver -eq '2004'))
         {
             If($OSArch -eq '64-bit')
@@ -114,7 +116,4 @@ if ($result)
             Invoke-WebRequest -Uri $downloadSource -OutFile $WULocation 
             wusa.exe $WULocation /quiet /norestart -Wait
     }
-
-    $Uninstaller = Invoke-WebRequest -Uri $downloadUninstaller -OutFile 'c:\FlashRemove\uninstaller.exe'
-    c:\FlashRemove\uninstaller.exe -uninstall
 }
